@@ -1,0 +1,16 @@
+{
+    "query": [
+        "and for tomorrow"
+    ],
+    "contexts": [{
+        "name": "weather",
+        "lifespan": 4
+    }],
+    "location": {
+        "latitude": 37.459157,
+        "longitude": -122.17926
+    },
+    "timezone": "America/New_York",
+    "lang": "en",
+    "sessionId": "1234567890"
+}

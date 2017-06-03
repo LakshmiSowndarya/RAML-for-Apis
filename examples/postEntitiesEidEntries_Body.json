@@ -1,0 +1,16 @@
+[
+  {
+    "value" : "parrot",
+    "synonyms": [
+      "parrot",
+      "parrots"
+    ]
+  },
+  {
+    "value": "rabbit",
+    "synonyms": [
+      "rabbit",
+      "rabbits"
+    ]
+  }
+]

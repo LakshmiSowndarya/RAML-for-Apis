@@ -1,0 +1,7 @@
+{
+    "name": "greetings",
+    "lifespan": 3,
+    "parameters": {
+       "name": "Sam"
+    }
+ }

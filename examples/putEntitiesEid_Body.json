@@ -1,0 +1,26 @@
+{
+  "id":"80f817e8-23fb-4e8e-ba62-eca1fcef7c3a",
+  "name": "Utility-Types",
+  "entries": [
+    {
+      "value": "Electricity",
+      "synonyms": [
+        "electricity",
+        "electrical"
+      ]
+    },
+    {
+      "value": "Gas",
+      "synonyms": [
+        "gas",
+        "natural gas",
+      ]
+    },
+    {
+      "value": "Water",
+      "synonyms": [
+        "water"
+      ]
+    }
+  ]
+}
