@@ -1,0 +1,405 @@
+#%RAML 0.8
+title: API.ai
+baseUri: https://api.api.ai/{version}
+version: v1
+
+schemas:
+  - postQuery: !include schemas/postQuery-schema.json
+  - postContext: !include schemas/postContext-schema.json
+  - postIntent: !include schemas/postIntent-schema.json
+  - postEntity: !include schemas/postEntity-schema.json
+  - putEntity: !include schemas/putEntity-schema.json
+  - postEntityEntries: !include schemas/postEntityEntries-schema.json
+  - postUserEntities: !include schemas/postUserEntities-schema.json
+  - deleteEntityEntries: !include schemas/deleteEntries-schema.json
+/intents:
+  get:
+    queryParameters:
+      v:
+        description: Version
+        default: 20150910
+    headers:
+      Authorization:
+        description: Authentication header
+    description: Retrieves a list of all intents for the agent.
+  post:
+    headers:
+      Authorization:
+        description: Authentication header
+      Content-Type:
+        description: Media type of the response
+        required: true
+        default: application/json; charset=utf-8
+    description: Creates a new intent.
+    body:
+      application/json:
+        schema: postIntent
+  /{iid}:
+    get:
+      headers:
+        Authorization:
+          description: Authentication header
+      description: Retrieves the specified intent.
+      queryParameters:
+        v:
+          description: Version of the protocol
+          required: true
+          default: 20150910
+    put:
+      headers:
+        Authorization:
+          description: Authentication header
+        Content-Type:
+          description: Media type of the response
+          required: true
+          default: application/json; charset=utf-8
+      description: Creates a new intent.
+      queryParameters:
+        v:
+          description: Version of the protocol
+          required: true
+          default: "20150910"
+      body:
+        application/json:
+          schema: postIntent
+      responses:
+        200:
+    delete:
+      headers:
+        Authorization:
+          description: Authentication header
+      description: Deletes the specified intent.
+      queryParameters:
+        v:
+          description: Version of the protocol
+          required: true
+/userEntities:
+  post:
+    headers:
+      Authorization:
+        description: Authentication header
+      Content-Type:
+        description: Media type for the response
+        required: true
+        default: application/json
+    description: Adds one or multiple user entities for a session.
+    body:
+      application/json:
+        schema: postUserEntities
+    responses:
+      200:
+  /{name}:
+    get:
+      headers:
+        Authorization:
+          description: Authentication header
+      queryParameters:
+        v:
+          description: Version of the protocol
+          default: 20150910
+        sessionId:
+          description: SessionId of User
+      description: Gets a user entity object by name.
+      responses:
+        200:
+    delete:
+      headers:
+        Authorization:
+          description: Authentication header
+      description: Deletes a user entity object with a specified name.
+      responses:
+        200:
+    put:
+      headers:
+        Authorization:
+          description: Authentication header
+        Content-Type:
+          description: Media type for Response
+      description: Updates user entity specified by name. Accepts user entity object.
+      body:
+        application/json:
+          schema: postUserEntities
+      responses:
+        200:
+/query:
+  get:
+    headers:
+      Authorization:
+        description: Authorization header
+    description: Takes natural language text and information as query parameters and returns information as JSON.
+    queryParameters:
+      v:
+        description: Version of the protocol
+        required: true
+      query:
+        description: Natural language text to be processed.Query length should not exceed 256 characters.
+        required: true
+      lang:
+        description: Language tag
+        required: true
+      sessionId:
+        description: A string token up to 36 symbols long, used to identify the client and to manage session parameters (including contexts) per client.
+        required: true
+    responses:
+      200:
+  post:
+    headers:
+      Authorization:
+        description: Authorization header
+    description: Takes natural language text and information as JSON in the POST body and returns information as JSON.
+    queryParameters:
+      v:
+        description: Version of the protocol
+        required: true
+    body:
+      application/json:
+        schema: postQuery
+    responses:
+      200:
+/contexts:
+  get:
+    headers:
+      Authorization:
+        description: Authorization header
+      Content-Type:
+        description: Media type of the Response
+        required: true
+        default: application/json
+      Accept:
+        required: true
+        default: application/json
+    description: Retrieves the list of all currently active contexts for the specified session.
+    queryParameters:
+      sessionId:
+        description: session id
+        required: true
+    responses:
+      200:
+  post:
+    headers:
+      Authorization:
+        description: Authorization header
+      Content-Type:
+        description: Media type of the Response
+        required: true
+        default: application/json
+      Accept:
+        required: true
+        default: application/json
+    description: Adds new active contexts to the specified session.
+    queryParameters:
+      sessionId:
+        description: session id
+        required: true
+    body:
+      application/json:
+        schema: postContext
+    responses:
+      200:
+  delete:
+    headers:
+      Authorization:
+        description: Authorization header
+      Content-Type:
+        description: Media type of the Response
+        required: true
+        default: application/json
+      Accept:
+        required: true
+        default: application/json
+    description: Deletes the specified context from the specified session.
+    queryParameters:
+      sessionId:
+        description: session id
+        required: true
+    responses:
+      200:
+  /{context_name}:
+    get:
+      headers:
+        Authorization:
+          description: Authorization header
+        Content-Type:
+          description: Media type of the Response
+          required: true
+          default: application/json
+        Accept:
+          required: true
+          default: application/json
+      description: Retrieves the specified context for the specified session.
+      queryParameters:
+        sessionId:
+          description: session id
+          required: true
+      responses:
+        200:
+    delete:
+      headers:
+        Authorization:
+          description: Authorization header
+        Content-Type:
+          description: Media type of the Response
+          required: true
+          default: application/json
+        Accept:
+          required: true
+          default: application/json
+      description: Deletes a user entity object with a specified name.
+      queryParameters:
+        sessionId:
+          description: session id
+          required: true
+      responses:
+        200:
+/tts:
+  get:
+    headers:
+      Authorization:
+        description: Authorization header
+      Accept-Language:
+        description: language accepted
+        default: en-US
+    description: Takes text and returns generated speech (WAV).
+    queryParameters:
+      v:
+        description: Version of the protocol
+      text:
+        description: text for converting to speech (WAV).
+    responses:
+      200:
+/entities:
+  get:
+    headers:
+      Authorization:
+        description: Authentication header
+    queryParameters:
+      v:
+        description: Version of the protocol
+        required: true
+    description: Retrieves a list of all entities for the agent.
+    responses:
+      200:
+  post:
+    headers:
+      Authorization:
+        description: Authentication header
+      Content-Type:
+        description: Media type of the Response
+        required: true
+        default: application/json; charset=utf-8
+    description: Creates a new entity.
+    queryParameters:
+      v:
+        description: Version of the protocol
+        required: true
+    body:
+      application/json:
+        schema: postEntity
+    responses:
+      200:
+  put:
+    headers:
+      Authorization:
+        description: Authentication header
+      Content-Type:
+        description: Media type of the Response
+    description: Creates or updates an array of entities.
+    queryParameters:
+      v:
+        description: Version of the protocol
+        required: true
+    body:
+      application/json:
+        schema: putEntity
+    responses:
+      200:
+  /{eid}:
+    get:
+      headers:
+        Authorization:
+          description: Authentication header
+      description: Retrieves the specified entity.
+      queryParameters:
+        v:
+          description: Version of the protocol
+          required: true
+      responses:
+        200:
+    put:
+      headers:
+        Authorization:
+          description: Authentication header
+        Content-Type:
+          description: Media type of the Response
+          required: true
+          default: application/json; charset=utf-8
+      description: Updates the specified entity.
+      queryParameters:
+        v:
+          description: Version of the protocol
+          required: true
+      body:
+        application/json:
+          schema: putEntity
+      responses:
+        200:
+    delete:
+      headers:
+         Authorization:
+           description: Authentication header
+      description: Deletes the specified entity.
+      queryParameters:
+        v:
+          description: Version of the protocol
+          required: true
+      responses:
+        200:
+    /entries:
+      post:
+        headers:
+          Authorization:
+            description: Authentication header
+          Content-Type:
+            description: Media type of the Response
+        description: Adds entries to the specified entity.
+        queryParameters:
+          v:
+            description: Version of the protocol
+            required: true
+        body:
+          application/json:
+            schema: postEntityEntries
+        responses:
+          200:
+      put:
+        headers:
+          Authorization:
+            description: Authentication header
+          Content-Type:
+            description: Media type of the Response
+        description: Updates entity entries.
+        queryParameters:
+          v:
+            description: Version of the protocol
+            required: true
+        body:
+          application/json:
+            schema: postEntityEntries
+        responses:
+          200:
+      delete:
+        headers:
+          Authorization:
+            description: Authentication header
+          Content-Type:
+            description: Authentication header
+        description: Deletes entity entries.
+        queryParameters:
+          v:
+            description: Version of the Protocol
+            required: true
+        body:
+          application/json:
+            schema: deleteEntityEntries
+        responses:
+          200:

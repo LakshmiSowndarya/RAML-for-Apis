@@ -1,0 +1,135 @@
+{
+  "required" : true,
+  "$schema" : "http://json-schema.org/draft-03/schema",
+  "type" : "object",
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "description" : "The name of the intent",
+      "required" : false
+    },
+    "auto" : {
+      "type" : "boolean",
+      "required" : false,
+      "description" : "True, if the machine learning is on in this intent or False, if the machine learning is off in this intent"
+    },
+    "contexts" : {
+      "type" : "array",
+      "required" : false,
+      "description" : "A list of contexts required in order for this intent to be triggered(input contexts)",
+      "items" : {
+        "type" : "string",
+        "required" : false
+      }
+    },
+    "templates" : {
+      "type" : "array",
+      "required" : false,
+      "description" : "Array of intents this intent will match. Each template is a string that may contain legal names",
+      "items" : {
+        "type" : "string",
+        "required" : false
+      }
+    },
+    "userSays" : {
+      "type" : "array",
+      "required" : false,
+      "description" : "Each object corresponds to one example/template",
+      "items" : {
+        "type" : "object",
+        "required" : false,
+        "properties" : {
+          "data" : {
+            "type" : "array",
+            "required" : false,
+            "description" : "information about the text of the template",
+            "items" : {
+              "text" : {
+                "type" : "string",
+                "required" : false,
+                "description" : "Text corresponds to one of the template"
+              },
+              "alias" : {
+                "type" : "string",
+                "required" : false,
+                "description" : "Parameter name for the annotated part of example"
+              },
+              "meta" : {
+                "type" : "string",
+                "required" : false,
+                "description" : "Entity name prefixed with @"
+              }
+            },
+            "isTemplate" : {
+              "type" : "boolean",
+              "required" : false,
+              "description" : "True, for template mode and False, for example mode"
+            },
+            "count":{
+              "type":"integer",
+              "required":false,
+              "description" : "number of times the template was added"
+            }
+          }
+        }
+      }
+    },
+    "responses":{
+      "type":"array",
+      "required":false,
+      "description" : "A list of responses for this intent",
+      "items":{
+        "type":"object",
+        "required":false,
+        "properties":{
+          "resetContexts":{
+            "type":"boolean",
+            "required":false
+          },
+          "action":{
+            "type":"string",
+            "required":false
+          },
+          "affectedContexts":{
+            "type": "object",
+            "required":false,
+            "properties":{
+              "name":{
+                "type":"string",
+                "required":false
+              },
+              "lifespan":{
+                "type":"string",
+                "required":false
+              }
+            }
+          },
+          "parameters":{
+            "type":"array",
+            "required":false,
+            "items":{
+              "type":"object",
+              "properties":{
+                "dataType":{
+                  "type":"string"
+                },
+                "name":{
+                  "type":"string"
+                },
+                "value":{
+                  "type":"string"
+                }
+              }
+            }
+          },
+          "speech":{
+            "type":"string"
+          }
+        }
+      }
+    },
+    "priority":{
+      "type":"integer"
+    }
+  }
+}

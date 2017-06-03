@@ -1,0 +1,45 @@
+{
+  "type":"object",
+  "$schema":"http://json-schema.org/draft-03/schema",
+  "required":true,
+  "properties":{
+    "sessionId":{
+      "type":"string",
+      "required":false,
+      "description": "Session Id for the user"
+    },
+    "name":{
+      "type":"string",
+      "required":false,
+      "description": "name of the entity"
+    },
+    "extend":{
+      "type":"boolean",
+      "required":false,
+      "description": "A flag identifying whether the additional data should extend or replace the default entity definition"
+    },
+    "entries":{
+      "type":"object",
+      "required":false,
+      "description": "Array of entity entry objects",
+      "items":{
+        "type":"object",
+        "required":false,
+        "properties":{
+            "type":"string",
+            "value":{
+            "required":false
+          },
+          "synonyms":{
+            "type":"array",
+            "required":false,
+            "items":{
+              "type":"string",
+              "required":false
+            }
+          }
+        }
+      }
+    }
+  }
+}

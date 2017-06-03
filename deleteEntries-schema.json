@@ -1,0 +1,9 @@
+{
+  "type":"array",
+  "$schema":"http://json-schema.org/draft-03/schema",
+  "required":true,
+  "items":{
+    "type": "string",
+    "required": false
+  }
+}
